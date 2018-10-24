@@ -4,7 +4,7 @@ module Tags
   ) where
 
 import Prelude                    (class Show, bind, pure, ($), (<>))
-import Data.Array.NonEmpty as NE
+import Data.Array.NonEmpty        (tail)
 import Data.Either                (hush)
 import Data.Maybe                 (Maybe(..))
 import Data.Tuple                 (Tuple(..), fst, snd)
@@ -30,11 +30,11 @@ extract_annotated :: String -> Maybe Tag
 extract_annotated tag = do
   multi_regex <- hush (regex multi_pattern noFlags)
   matches     <- match multi_regex tag
-  components  <- extract_components (NE.toArray matches)
+  components  <- extract_components (tail matches)
   text        <- fst components
   annotation  <- snd components
   pure $ Annotated text annotation
 
 extract_components :: Array (Maybe String) -> Maybe (Tuple (Maybe String) (Maybe String))
-extract_components [ _, text, annotation] = Just (Tuple text annotation)
-extract_components _                      = Nothing
+extract_components [ text, annotation] = Just (Tuple text annotation)
+extract_components _                   = Nothing
