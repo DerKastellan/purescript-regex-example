@@ -14,7 +14,7 @@ The example tries to tell apart two possible formats for "tags":
 
 The challenge was the result type of match with its multiple levels of optionality. When matching out an annotated tag we're interested in the two match groups containing the components of the annotated tag. So, only a match array of length 3 is interesting - complete match (to be ignored), match group 1, match group 2. Also, I wanted to avoid the use of `unsafePartial`.
 
-The beauty of using the Maybe monad with `do` notation is that we can rely on the "magic" that everything to the left of `<-` is unwrapped from a `Maybe` and we can treat it like any other value while the whole computation will result in `Nothing` if any step didn't work as expected. The lack of `if` and `case` statements is boon other languages do not grant us.
+The beauty of using the `Maybe` monad with `do` notation is that we can rely on the "magic" that everything to the left of `<-` is unwrapped from a `Maybe` and we can treat it like any other value while the whole computation will result in `Nothing` if any step didn't work as expected. The lack of `if` and `case` statements is a boon other languages do not grant us without demanding the heavy price of exceptions.
 
 ## Build and run
 
